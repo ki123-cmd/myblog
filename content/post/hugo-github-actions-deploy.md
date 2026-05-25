@@ -2,7 +2,7 @@
 title: "Hugo 博客自动部署：GitHub Actions + 宝塔 Nginx"
 date: 2026-05-25
 tags: ["Hugo", "GitHub Actions", "DevOps", "Nginx"]
-categories: ["技术"]
+categories: ["自动化部署"]
 toc: true
 ---
 
