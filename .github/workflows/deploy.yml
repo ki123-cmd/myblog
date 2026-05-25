@@ -34,5 +34,6 @@ jobs:
       # 5. 同步到服务器
       - name: Deploy
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
+          rsync -avz --delete --no-perms --no-owner --no-group \
+            -e "ssh -o StrictHostKeyChecking=no" \
             public/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_PATH }}
