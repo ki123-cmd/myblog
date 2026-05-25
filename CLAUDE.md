@@ -70,3 +70,23 @@ To override any theme template, copy the relevant file from the theme to your `l
 - Custom CSS can be added via `params.customFilePath.style` in `hugo.yaml`.
 - The theme uses Font Awesome 6 for icons, KaTeX/Mermaid/Charts for rich content.
 - Chinese/Japanese/Korean language detection is enabled (`hasCJKLanguage: true`).
+
+## Deployment
+
+- **GitHub**: https://github.com/ki123-cmd/myblog
+- **Server**: 39.96.35.250 (Baota panel, Nginx static site at `/www/wwwroot/code-review.top`)
+- **Domain**: code-review.top
+- **Automation**: GitHub Actions (`.github/workflows/deploy.yml`)
+  - Trigger: push to `master`
+  - Steps: checkout (with submodules) → install Hugo 0.146.0 → `hugo --minify` → rsync to server
+  - SSH auth via GitHub Secrets: `SSH_PRIVATE_KEY`, `REMOTE_HOST`, `REMOTE_USER`, `REMOTE_PATH`
+
+### How to deploy
+```
+git add . && git commit -m "..." && git push origin master
+```
+Then check https://github.com/ki123-cmd/myblog/actions for status.
+
+### i18n Overrides
+- `i18n/zh-cn.yaml` overrides theme translations (e.g., "标签集锦" → "标签", "分类栏目" → "分类")
+- DO NOT modify files inside `themes/hugo-theme-next/` — changes will not be pushed (submodule)
