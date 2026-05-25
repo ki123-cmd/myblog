@@ -1,0 +1,6 @@
+# 覆盖主题的 i18n 配置
+- id: TagTitle
+  translation: 标签
+
+- id: CateTitle
+  translation: 分类
