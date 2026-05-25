@@ -1,0 +1,19 @@
+# 友情链接数据
+
+- FLinksTitle: 技术伙伴
+  FLinksDesc: 优秀的技术博客与工具。
+  FLinksList:
+    - name: Hugo
+      desc: 世界上最快的网站建设框架！
+      avatar: https://gohugo.io/favicon-32x32.png
+      link: https://gohugo.io
+      timeout: 2
+      visible: true
+
+    - name: Hugo-NexT
+      desc: Hugo NexT 官方预览网站。
+      avatar: https://hugo-next.eu.org/imgs/hugo_next_avatar.png
+      link: https://hugo-next.eu.org
+      timeout: 2
+      visible: true
+

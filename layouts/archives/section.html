@@ -1,0 +1,32 @@
+{{ define "title" }}
+归档 - {{ .Site.Title }}
+{{ end }}
+
+{{ define "main_inner_class" }}archive posts-collapse{{ end }}
+
+{{ define "main" }}
+<div class="post-block">
+  <div class="post-content">
+    {{ $pages := where .Site.RegularPages "Section" "in" .Site.Params.mainSections }}
+    {{ $paginator := .Paginate ($pages.GroupByDate "2006") }}
+    {{ range $paginator.PageGroups }}
+    <div class="collection-year">
+      <span class="collection-header">{{ .Key }}</span>
+    </div>
+    {{ range .Pages }}
+    <article itemscope itemtype="http://schema.org/Article" class="post-header">
+      <div class="post-meta-container">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">
+          {{ .Date.Format "01-02" }}
+        </time>
+      </div>
+      <h2 class="post-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h2>
+    </article>
+    {{ end }}
+    {{ end }}
+  </div>
+</div>
+{{ partial "pagination.html" . }}
+{{ end }}

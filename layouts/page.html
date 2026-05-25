@@ -1,0 +1,55 @@
+{{ define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end }}
+
+{{ define "main_inner_class" }}post posts-expand{{ end }}
+
+{{ define "main" }}
+<div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="{{ .Site.LanguageCode }}">
+    {{ with .Site.Params.avatar.url }}
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="{{ . }}">
+      <meta itemprop="name" content="{{ $.Site.Params.author }}">
+    </span>
+    {{ end }}
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="{{ .Site.Params.author }}">
+    </span>
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="{{ .Title }}">
+      <meta itemprop="description" content="{{ .Description | default .Summary }}">
+    </span>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">{{ .Title }}</h1>
+      {{ if eq .Type "post" }}
+      {{ $isComment := and (.Scratch.Get "isComment") .Site.Params.postMeta.comments.enable }}
+      <div class="post-meta-container">
+        <div class="post-meta-items">
+          {{ partial "post/header_meta/created_date.html" . }}
+          {{ partial "post/header_meta/categories.html" . }}
+          {{ partial "post/header_meta/words.html" . }}
+          {{ partial "post/header_meta/readtime.html" . }}
+          {{ if .Site.Params.postMeta.views.enable }}
+            {{ partial "post/header_meta/views.html" . }}
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </header>
+    {{ $tocEnable := .Params.toc | default .Site.Params.toc.enable }}
+    <div class="post-body {{ if and $tocEnable .Site.Params.toc.number }} autonumber {{ end }}" itemprop="articleBody">
+      {{ .Content }}
+    </div>
+    {{ if eq .Type "post" }}
+    <footer class="post-footer">
+      {{ partial "post/footer_meta/copyright.html" . }}
+    </footer>
+    {{ end }}
+  </article>
+</div>
+{{ if eq .Type "post" }}
+{{ $isComment := and (.Scratch.Get "isComment") .Site.Params.postMeta.comments.enable }}
+{{ if $isComment }}
+  {{ partial "comments.html" . }}
+{{ end }}
+{{ end }}
+{{ end }}

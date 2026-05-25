@@ -1,0 +1,45 @@
+<div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="{{ .ctx.Site.LanguageCode }}">
+    <header class="post-header">
+      <h2 class="post-title" itemprop="name headline">
+        <a href="{{ .ctx.RelPermalink | relLangURL }}" itemprop="url" class="post-title-link">{{ .ctx.Title }}</a>
+      </h2>
+      <div class="post-meta-container">
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon"><i class="fas fa-solid fa-calendar"></i></span>
+          <span class="post-meta-item-text">{{ .ctx.Date.Format "2006-01-02" }}</span>
+        </span>
+        {{ with .ctx.Params.categories }}
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon"><i class="fas fa-solid fa-folder-open"></i></span>
+          <span class="post-meta-item-text">分类：</span>
+          {{ range first 1 . }}
+          <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}/" rel="index">{{ . }}</a>
+          {{ end }}
+        </span>
+        {{ end }}
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+      {{ with .ctx.Description }}
+      <p class="post-summary">摘要：{{ . }}</p>
+      {{ end }}
+    </div>
+    <footer class="post-footer">
+      {{ with .ctx.Params.tags }}
+      <div class="post-tags">
+        <span class="post-tags-label">标签：</span>
+        {{ range . }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/" class="post-tag-item">{{ . }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
+      <div class="post-button">
+        <a class="btn" href="{{ .ctx.RelPermalink | relLangURL }}" rel="contents">
+          阅读全文 &raquo;
+        </a>
+      </div>
+      <div class="post-eof"></div>
+    </footer>
+  </article>
+</div>
