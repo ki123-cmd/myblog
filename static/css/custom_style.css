@@ -8,6 +8,59 @@
 }
 
 /* ============================================
+   移动端 - 显示文章时间和分类文字
+   ============================================ */
+
+@media (max-width: 991px) {
+  .post-meta-item-text {
+    display: inline !important;
+  }
+
+  /* 移动端导航栏中显示头像和站点统计 */
+  .menu-item-mobile-sidebar {
+    display: flex !important;
+    flex-direction: column;
+    padding: 16px !important;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 8px;
+  }
+
+  .mobile-sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .mobile-sidebar-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .mobile-sidebar-author {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .mobile-sidebar-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+  }
+}
+
+@media (min-width: 992px) {
+  .menu-item-mobile-sidebar {
+    display: none !important;
+  }
+}
+
+/* ============================================
    首页文章卡片 - 自定义样式
    ============================================ */
 
