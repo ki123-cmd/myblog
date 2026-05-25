@@ -2,16 +2,11 @@
 {{ $curP := .Page }}
 <nav class="site-nav">
   <ul class="main-menu menu">
-  <!-- 移动端显示头像和站点统计 -->
+  <!-- 移动端显示头像 -->
   <li class="menu-item menu-item-mobile-sidebar">
     <div class="mobile-sidebar-header">
       <img class="mobile-sidebar-avatar" src="{{ .Site.Params.avatar.url }}" alt="{{ .Site.Params.author }}">
       <span class="mobile-sidebar-author">{{ .Site.Params.author }}</span>
-    </div>
-    <div class="mobile-sidebar-stats">
-      <span>📄 {{ len (where .Site.RegularPages "Section" "post") }} 文章</span>
-      <span>📁 {{ len .Site.Taxonomies.categories }} 分类</span>
-      <span>🏷️ {{ len .Site.Taxonomies.tags }} 标签</span>
     </div>
   </li>
   {{ range .Site.Menus.main }}
