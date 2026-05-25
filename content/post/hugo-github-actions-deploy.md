@@ -13,10 +13,12 @@ toc: true
 ## 整体流程
 
 ```
-本地写文章 → git push → GitHub Actions 触发
-    → 拉取代码（含子模块）→ 安装 Hugo → hugo --minify
+本地开发、测试（hugo server）→ git push → GitHub Actions 触发
+    → 拉取代码 → 安装 Hugo → hugo --minify 生成静态文件
     → rsync 同步 public/ 到服务器 Nginx 目录
 ```
+
+服务器上不需要安装 Hugo，只需要 Nginx 托管静态文件。构建工作全部在 GitHub Actions 中完成。
 
 ## 服务器端配置
 
@@ -97,7 +99,6 @@ jobs:
 
 | 步骤 | 说明 |
 |------|------|
-| `submodules: true` | 主题是 git 子模块，必须一并拉取 |
 | `hugo --minify` | 构建并压缩静态文件 |
 | `webfactory/ssh-agent` | 将 GitHub Secret 中的私钥注入 SSH 会话 |
 | `rsync -avz --delete` | 增量同步，`--delete` 删除服务器上已移除的文件 |
@@ -106,15 +107,15 @@ jobs:
 
 ## 注意事项
 
-### 子模块修改问题
+### 修改主题的正确方式
 
-主题目录 `themes/hugo-theme-next/` 是 git 子模块，对其中文件的修改**不会被推送到仓库**。GitHub Actions 拉取的是原始主题代码。
+不要直接改 `themes/` 下的文件。需要在项目根目录创建同名文件来覆盖：
 
-如需覆盖主题配置，在项目根目录的对应目录下创建 Hugo 查找顺序更高的文件：
-
-- **i18n 覆盖**：`i18n/zh-cn.yaml`
-- **模板覆盖**：`layouts/` 下的同名文件
-- **样式覆盖**：`static/css/custom_style.css`
+| 需要修改 | 创建文件 |
+|----------|----------|
+| 翻译文字 | `i18n/zh-cn.yaml` |
+| 页面结构 | `layouts/` 下同名文件 |
+| 样式 | `static/css/custom_style.css`
 
 ### rsync 常见错误
 
